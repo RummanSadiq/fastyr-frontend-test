@@ -10,6 +10,9 @@ import { DashboardLayout } from "@/layouts/dashboard-layout";
 // Fonts
 import { Inter } from "next/font/google";
 
+// Lib
+import { ApolloWrapper } from "@/lib/apollo-client/apollo-wrapper";
+
 export const metadata: Metadata = {
   title: "Fastyr",
   description: "Fastyr Frontend Test",
@@ -28,7 +31,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={classNames(inter.variable, inter.className)}>
-        <DashboardLayout>{children}</DashboardLayout>
+        <ApolloWrapper>
+          <DashboardLayout>{children}</DashboardLayout>
+        </ApolloWrapper>
       </body>
     </html>
   );

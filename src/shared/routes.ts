@@ -1,7 +1,7 @@
 // Frontend Routes
 export const Routes = {
   home: "/",
-  user: "/user",
+  user: "/users",
   album: "/album",
   audio: "/audio",
 };
