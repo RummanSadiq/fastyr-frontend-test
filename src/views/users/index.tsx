@@ -23,14 +23,14 @@ export const UserView: FunctionComponent<Props> = ({ users }) => {
       >
         {!!users &&
           users.map((user: User) => (
-            <UserInfoCard
-              key={user.id}
-              name={user.name}
-              username={user.username}
-              email={user.email}
-              phone={user.phone}
-              website={user.website}
-            />
+              <UserInfoCard
+                name={user.name}
+                username={user.username}
+                email={user.email}
+                phone={user.phone}
+                website={user.website}
+                userId={user.id} 
+              />
           ))}
       </div>
     </div>

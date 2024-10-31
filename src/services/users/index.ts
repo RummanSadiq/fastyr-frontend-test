@@ -14,3 +14,16 @@ export const GetUsers = gql`
     }
   }
 `;
+
+export const GetUserById = gql`
+  query User($id: ID!) {
+    user(id: $id) {
+      id
+      name
+      username
+      email
+      phone
+      website
+    }
+  }
+`;
