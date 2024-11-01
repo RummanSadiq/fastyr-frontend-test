@@ -28,7 +28,10 @@ type Props = {
 export const AlbumView: FunctionComponent<Props> = ({ albums }) => {
   return (
     <div className="mx-auto h-screen overflow-y-auto rounded-lg bg-white p-6 shadow-md">
-      <Header label="Albums" />
+      <div className="mb-4 flex items-center justify-between">
+        <Header label="Albums" />
+        <CreateUpdateAlbumModal />
+      </div>
       <Table className="min-w-full overflow-hidden bg-white">
         <TableCaption>A list of albums.</TableCaption>
         <TableHeader>
@@ -61,7 +64,6 @@ export const AlbumView: FunctionComponent<Props> = ({ albums }) => {
           ))}
         </TableBody>
       </Table>
-      <CreateUpdateAlbumModal />
     </div>
   );
 };

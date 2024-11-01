@@ -9,5 +9,11 @@ type Props = {
   album: Album;
 };
 export const AlbumDetailsView: FunctionComponent<Props> = ({ album }) => {
-  return <AlbumDetailCard title={album.title} name={album.title} />;
+  return (
+    <AlbumDetailCard
+      title={album.title}
+      name={album.title}
+      albumId={album.id}
+    />
+  );
 };

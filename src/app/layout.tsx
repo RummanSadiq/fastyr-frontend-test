@@ -13,6 +13,8 @@ import { Inter } from "next/font/google";
 // Lib
 import { ApolloWrapper } from "@/lib/apollo-client/apollo-wrapper";
 
+import { Toaster } from "sonner";
+
 export const metadata: Metadata = {
   title: "Fastyr",
   description: "Fastyr Frontend Test",
@@ -30,6 +32,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <Toaster />
       <body className={classNames(inter.variable, inter.className)}>
         <ApolloWrapper>
           <DashboardLayout>{children}</DashboardLayout>
