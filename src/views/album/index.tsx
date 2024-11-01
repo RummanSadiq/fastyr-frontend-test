@@ -8,7 +8,9 @@ import {
   TableRow,
   TableCaption,
 } from "@/components/ui/table";
-import { CreateAlbumModal } from "./CreateAlbumModal"; // Import the modal component
+import { CreateUpdateAlbumModal } from "@/components/album/CreateUpdateAlbumModal";
+import { Header } from "@/components/common/Header";
+import classNames from "classnames";
 
 // Types
 type Album = {
@@ -25,9 +27,9 @@ type Props = {
 
 export const AlbumView: FunctionComponent<Props> = ({ albums }) => {
   return (
-    <div className="mx-auto rounded-lg bg-white p-6 shadow-md">
-      <h1 className="mb-4 text-3xl font-bold">Albums</h1>
-      <Table className="min-w-full bg-white">
+    <div className="mx-auto h-screen overflow-y-auto rounded-lg bg-white p-6 shadow-md">
+      <Header label="Albums" />
+      <Table className="min-w-full overflow-hidden bg-white">
         <TableCaption>A list of albums.</TableCaption>
         <TableHeader>
           <TableRow className="bg-gray-100">
@@ -42,7 +44,7 @@ export const AlbumView: FunctionComponent<Props> = ({ albums }) => {
             </TableHead>
           </TableRow>
         </TableHeader>
-        <TableBody>
+        <TableBody className={classNames("flex-1 overflow-y-auto")}>
           {albums.map((album) => (
             <TableRow key={album.id} className="hover:bg-gray-50">
               <TableCell className="py-2">{album.title}</TableCell>
@@ -59,7 +61,7 @@ export const AlbumView: FunctionComponent<Props> = ({ albums }) => {
           ))}
         </TableBody>
       </Table>
-      <CreateAlbumModal />
+      <CreateUpdateAlbumModal />
     </div>
   );
 };

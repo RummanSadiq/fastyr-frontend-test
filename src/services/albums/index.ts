@@ -13,3 +13,16 @@ export const GetAlbums = gql`
     }
   }
 `;
+
+
+export const GetAlbumsById = gql`
+  query Album($id: ID!) {
+    album(id: $id) {
+      id
+      title
+      user {
+        name
+      }
+    }
+  }
+`;

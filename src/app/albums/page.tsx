@@ -1,10 +1,9 @@
 import { NextPage } from "next";
-import classNames from "classnames";
 
 // Views
 import { AlbumView } from "@/views/album";
 
-//Lib
+// Lib
 import { getClient } from "@/lib/apollo-client/client";
 
 // Services
@@ -17,11 +16,7 @@ const AlbumsPage: NextPage = async () => {
     query: GetAlbums,
   });
 
-  return (
-    <div className={classNames("mx-auto rounded-lg bg-white p-6 shadow-md")}>
-      <AlbumView albums={data.albums.data} />
-    </div>
-  );
+  return <AlbumView albums={data.albums.data} />;
 };
 
 export default AlbumsPage;

@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -11,32 +13,58 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { FunctionComponent, useState } from "react";
 
-export function CreateAlbumModal() {
+type CreateUpdateAlbumModalProps = {
+  title?: string;
+  name?: string;
+  label?: string;
+};
+
+export const CreateUpdateAlbumModal: FunctionComponent<
+  CreateUpdateAlbumModalProps
+> = ({
+  title = "New Album",
+  name = "Unknown Artist",
+  label = "Create Album",
+}) => {
+  const [albumTitle, setAlbumTitle] = useState(title);
+  const [artistName, setArtistName] = useState(name);
+
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">Create Album</Button>
+        <Button variant="outline">{label}</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Create Album</DialogTitle>
+          <DialogTitle>{label}</DialogTitle>
           <DialogDescription>
             Make changes to your album here. Click save when you&apos;re done.
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="name" className="text-right">
+            <Label htmlFor="albumTitle" className="text-right">
               Title
             </Label>
-            <Input id="name" value="Pedro Duarte" className="col-span-3" />
+            <Input
+              id="albumTitle"
+              value={albumTitle}
+              onChange={(e) => setAlbumTitle(e.target.value)}
+              className="col-span-3"
+            />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="username" className="text-right">
+            <Label htmlFor="artistName" className="text-right">
               Artist
             </Label>
-            <Input id="username" value="@peduarte" className="col-span-3" />
+            <Input
+              id="artistName"
+              value={artistName}
+              onChange={(e) => setArtistName(e.target.value)}
+              className="col-span-3"
+            />
           </div>
         </div>
         <DialogFooter>
@@ -49,4 +77,4 @@ export function CreateAlbumModal() {
       </DialogContent>
     </Dialog>
   );
-}
+};
