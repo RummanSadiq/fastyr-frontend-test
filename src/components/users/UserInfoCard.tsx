@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import classNames from "classnames";
 import { FunctionComponent, useCallback } from "react";
@@ -42,36 +42,35 @@ export const UserInfoCard: FunctionComponent<Props> = ({
   const router = useRouter();
 
   const handleClick = useCallback(() => {
-    if(!userId) return
+    if (!userId) return;
 
     router.push(Routes.userDetail(userId));
-  },[]);
+  }, [router, userId]);
 
   return (
-    <Card
-      onClick={handleClick}
-      className={classNames("h-fit cursor-pointer")}
-    >
-        <CardHeader>
-          <CardTitle>{name}</CardTitle>
-          <CardDescription className={classNames("text-sm text-muted-foreground")}>
-            {username}
-          </CardDescription>
-        </CardHeader>
-        <CardContent className={classNames("flex flex-col gap-1 text-sm")}>
-          <div className={classNames("flex items-center gap-2")}>
-            <LuPhone />
-            <p>{formatPhoneWithExt(phone)}</p>
-          </div>
-          <div className={classNames("flex items-center gap-2")}>
-            <LuMail />
-            <p>{email}</p>
-          </div>
-          <div className={classNames("flex items-center gap-2")}>
-            <LuGlobe />
-            <p>{website}</p>
-          </div>
-        </CardContent>
-      </Card>
+    <Card onClick={handleClick} className={classNames("h-fit cursor-pointer")}>
+      <CardHeader>
+        <CardTitle>{name}</CardTitle>
+        <CardDescription
+          className={classNames("text-sm text-muted-foreground")}
+        >
+          {username}
+        </CardDescription>
+      </CardHeader>
+      <CardContent className={classNames("flex flex-col gap-1 text-sm")}>
+        <div className={classNames("flex items-center gap-2")}>
+          <LuPhone />
+          <p>{formatPhoneWithExt(phone)}</p>
+        </div>
+        <div className={classNames("flex items-center gap-2")}>
+          <LuMail />
+          <p>{email}</p>
+        </div>
+        <div className={classNames("flex items-center gap-2")}>
+          <LuGlobe />
+          <p>{website}</p>
+        </div>
+      </CardContent>
+    </Card>
   );
 };
