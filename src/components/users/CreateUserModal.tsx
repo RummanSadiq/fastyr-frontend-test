@@ -1,6 +1,14 @@
-import { useState, useEffect, ChangeEvent, useCallback, useMemo, FunctionComponent } from "react";
 import { useMutation } from "@apollo/client";
 import classNames from "classnames";
+import { toast } from "sonner";
+import {
+  useState,
+  useEffect,
+  ChangeEvent,
+  useCallback,
+  useMemo,
+  FunctionComponent,
+} from "react";
 
 // Custom Components
 import { Button } from "@/components/ui/button";
@@ -45,20 +53,22 @@ export const CreateUserModal: FunctionComponent<Props> = ({
   const isDisabled = useMemo(() => {
     const { name, username, email, phone, website } = userData;
 
-    if(!user){
+    if (!user) {
       return !(name && username && email && phone && website);
     }
 
-    if(user){
-      return user.name === name && 
-                      user.username === username && 
-                      user.email === email && 
-                      user.phone === phone && 
-                      user.website === website;
+    if (user) {
+      return (
+        user.name === name &&
+        user.username === username &&
+        user.email === email &&
+        user.phone === phone &&
+        user.website === website
+      );
     }
 
-    return false
-  },[user, userData])
+    return false;
+  }, [user, userData]);
 
   const handleInputChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
@@ -67,36 +77,46 @@ export const CreateUserModal: FunctionComponent<Props> = ({
   }, []);
 
   const handleSave = useCallback(async () => {
-    try {
-      if (user) {
-        await updateUser({
-          variables: {
-            id: userData.id,
-            input: {
-              name: userData.name,
-              username: userData.username,
-              email: userData.email,
-              phone: userData.phone,
-              website: userData.website,
-            },
-          },
-        });
-      } else {
-        await createUser({
-          variables: {
-            input: {
-              name: userData.name,
-              email: userData.email,
-              username: userData.username,
-              phone: userData.phone,
-              website: userData.website,
-            },
-          },
-        });
-      }
-    } catch (error) {
-      console.error("Error saving user:", error);
-    }
+    toast.promise(
+      async () => {
+        try {
+          if (user) {
+            await updateUser({
+              variables: {
+                id: userData.id,
+                input: {
+                  name: userData.name,
+                  username: userData.username,
+                  email: userData.email,
+                  phone: userData.phone,
+                  website: userData.website,
+                },
+              },
+            });
+          } else {
+            await createUser({
+              variables: {
+                input: {
+                  name: userData.name,
+                  email: userData.email,
+                  username: userData.username,
+                  phone: userData.phone,
+                  website: userData.website,
+                },
+              },
+            });
+          }
+        } catch (error) {
+          console.error("Error saving user:", error);
+          throw error; // re-throw error to trigger the error message in toast.promise
+        }
+      },
+      {
+        loading: "Saving user...",
+        success: "User saved successfully!",
+        error: "Failed to save user. Please try again.",
+      },
+    );
   }, [createUser, updateUser, user, userData]);
 
   const formFields = useMemo(

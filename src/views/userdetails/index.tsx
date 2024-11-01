@@ -2,6 +2,7 @@
 
 import { FunctionComponent, useCallback, useState } from "react";
 import classNames from "classnames";
+import { toast } from "sonner";
 import { useMutation } from "@apollo/client";
 
 // Custom Components
@@ -38,9 +39,18 @@ export const UserDetailsView: FunctionComponent<Props> = ({ user }) => {
     setDeleteModalOpen(false);
   }, []);
 
-  const handleDeleteConfirm = useCallback(async () => {
-    await deleteUser({ variables: { id: user.id } });
-    handleCloseDeleteModal();
+  const handleDeleteConfirm = useCallback(() => {
+    toast.promise(
+      (async () => {
+        await deleteUser({ variables: { id: user.id } });
+        handleCloseDeleteModal();
+      })(),
+      {
+        loading: "Deleting user...",
+        success: "User deleted successfully!",
+        error: "Failed to delete user. Please try again.",
+      }
+    );
   }, [deleteUser, handleCloseDeleteModal, user.id]);
 
   return (
